@@ -9,6 +9,7 @@ import se.joce.springv2.service.UserServiceImpl;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -31,6 +32,17 @@ public class UserController {
         }catch(NoSuchElementException e){
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
+    }
+    //        TODO implement this method if needed, not mandatory yet
+    @GetMapping("{email}")
+    public ResponseEntity<User> getUserEmail(@PathVariable String email){
+
+//        Optional<User> user = userServiceImpl.getUserByEmail(email);
+//        if(user.isEmpty()) return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+//
+//        ResponseEntity.ok().body(user);
+//        return ResponseEntity.status(HttpStatus.OK).build();
+    return null;
     }
 
 
