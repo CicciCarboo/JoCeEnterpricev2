@@ -11,7 +11,7 @@ public interface UserService {
     User getUserByID(Integer id);
     Optional<User> getUserByEmail(String email);
     User registerNewUser(User user);
-    User updateUser(User user);
-    void deleteUserById(Integer id);
+    Optional<User> updateUser(Integer id, User user);
+    String deleteUserById(Integer id);
 
 }
