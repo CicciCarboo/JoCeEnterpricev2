@@ -31,8 +31,9 @@ public class UserViewController {
         return "admin";
     }
 
-    @GetMapping("/todo")
-    private String getTodoPage(){
-        return "todo";
+    @GetMapping("/about")
+    private String getAboutPage(){
+        return "about";
     }
+
 }
