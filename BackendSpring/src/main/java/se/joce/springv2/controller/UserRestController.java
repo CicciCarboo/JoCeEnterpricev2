@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/user")
-public class UserController {
+public class UserRestController {
 
     @Autowired
     UserService userService;

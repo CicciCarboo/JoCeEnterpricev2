@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All users</title>
+</head>
+<body>
+<h1>Welcome to the User page</h1>
+<tr th:each="user : ${users}">
+    <td>
+        <a th:text="${user.name}"
+           th:href="@{'/show/' + ${user.id}}">
+        </a>
+    </td>
+</tr>
+</body>
+</html>
