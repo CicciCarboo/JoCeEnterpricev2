@@ -18,6 +18,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+        http
+
+//                .and()
+//                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic();
+//                .formLogin()
+//                .usernameParameter("email")
+//                .defaultSuccessUrl("/todo").permitAll()
+//                .and()
+//                .logout().logoutSuccessUrl("/").permitAll();
     }
 }
