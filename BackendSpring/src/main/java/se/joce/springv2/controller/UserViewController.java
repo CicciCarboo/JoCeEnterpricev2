@@ -20,9 +20,19 @@ public class UserViewController {
         return "allUsers";
     }
 
+    @GetMapping("/user")
+    private String getUser(Model model, String email) {
+        model.addAttribute("users", userRepository.findByEmail(email));
+        return "user";
+    }
+
     @GetMapping("/admin")
     private String getAdminPage(){
         return "admin";
     }
 
+    @GetMapping("/todo")
+    private String getTodoPage(){
+        return "todo";
+    }
 }

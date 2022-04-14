@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+</head>
+<body>
+    <h1>Welcome to user page</h1>
+    <h2>My profile</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+<!--        <tr th:each="user : ${users}">-->
+<!--            <td th:text="${user.name}"></td>-->
+<!--            <td th:text="${user.email}"></td>-->
+<!--            <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>-->
+<!--            <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>-->
+<!--        </tr>-->
+        </tbody>
+    </table>
+    <button><a th:href="@{/myTodoList/todo}">My todo list</a></button>
+</body>
+</html>
