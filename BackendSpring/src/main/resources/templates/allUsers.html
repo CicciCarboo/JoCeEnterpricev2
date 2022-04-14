@@ -3,15 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>All users</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
 </head>
 <body>
-<h1>Welcome to the User page</h1>
-<tr th:each="user : ${users}">
-    <td>
-        <a th:text="${user.name}"
-           th:href="@{'/show/' + ${user.id}}">
-        </a>
-    </td>
-</tr>
+<div class="container my-2">
+<h1 class="text-center">Welcome to the User Administration page.</h1>
+
+<table class="table table-striped table-responsive-md">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user: ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.password}"></td>
+        <td><a th:href="@{/myTodoList/showFormForUpdate/{id}(id=${user.id})}" class="btn btn-primary">Update</a></td>
+        <td><a th:href="@{/myTodoList/delete-user/{id}(id=${user.id})}" class="btn btn-primary">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+</div>
 </body>
 </html>
