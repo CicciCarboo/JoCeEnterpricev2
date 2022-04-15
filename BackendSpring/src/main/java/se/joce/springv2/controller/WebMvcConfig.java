@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@RequestMapping("/test")
+@RequestMapping("myTodoList/about")
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override

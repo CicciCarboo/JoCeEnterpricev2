@@ -1,11 +1,11 @@
 package se.joce.springv2.todo.controller;
 
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import se.joce.springv2.todo.model.TodoItem;
-import se.joce.springv2.todo.model.TodoItemFormData;
-import se.joce.springv2.todo.model.TodoNotFoundException;
+import se.joce.springv2.todo.model.*;
 import se.joce.springv2.todo.repository.TodoItemRepository;
 
 import javax.validation.Valid;
@@ -13,16 +13,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/")
+@AllArgsConstructor
+@RequestMapping(value = "/")
 public class TodoItemController {
 
+    //TODO: solve 405 error - POST and GET mapping
+
+    @Autowired
     private final TodoItemRepository repository;
 
-    public TodoItemController(TodoItemRepository repository) {
-        this.repository = repository;
-    }
-
-    @GetMapping
+    @GetMapping("/")
     public String index(Model model) {
         addAttributesForIndex(model, ListFilter.ALL);
         return "index";
@@ -38,16 +38,6 @@ public class TodoItemController {
     public String indexCompleted(Model model) {
         addAttributesForIndex(model, ListFilter.COMPLETED);
         return "index";
-    }
-
-    private void addAttributesForIndex(Model model,
-                                       ListFilter listFilter) {
-        model.addAttribute("item", new TodoItemFormData());
-        model.addAttribute("filter", listFilter);
-        model.addAttribute("todos", getTodoItems(listFilter));
-        model.addAttribute("totalNumberOfItems", repository.count());
-        model.addAttribute("numberOfActiveItems", getNumberOfActiveItems());
-        model.addAttribute("numberOfCompletedItems", getNumberOfCompletedItems());
     }
 
     @PostMapping
@@ -94,11 +84,17 @@ public class TodoItemController {
     }
 
     private List<TodoItemDto> getTodoItems(ListFilter filter) {
-        return switch (filter) {
-            case ALL -> convertToDto(repository.findAll());
-            case ACTIVE -> convertToDto(repository.findAllByCompleted(false));
-            case COMPLETED -> convertToDto(repository.findAllByCompleted(true));
-        };
+        switch (filter) {
+            case ALL:
+                return convertToDto(repository.findAll());
+            case ACTIVE:
+                return convertToDto(repository.findAllByCompleted(false));
+            case COMPLETED:
+                return convertToDto(repository.findAllByCompleted(true));
+            default:
+                break;
+        }
+        return null;
     }
 
     private List<TodoItemDto> convertToDto(List<TodoItem> todoItems) {
@@ -118,12 +114,15 @@ public class TodoItemController {
         return repository.countAllByCompleted(true);
     }
 
-    public static record TodoItemDto(long id, String title, boolean completed) {
+
+    private void addAttributesForIndex(Model model,
+                                       ListFilter listFilter) {
+        model.addAttribute("item", new TodoItemFormData());
+        model.addAttribute("filter", listFilter);
+        model.addAttribute("todos", getTodoItems(listFilter));
+        model.addAttribute("totalNumberOfItems", repository.count());
+        model.addAttribute("numberOfActiveItems", getNumberOfActiveItems());
+        model.addAttribute("numberOfCompletedItems", getNumberOfCompletedItems());
     }
 
-    public enum ListFilter {
-        ALL,
-        ACTIVE,
-        COMPLETED
-    }
 }
