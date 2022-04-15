@@ -3,10 +3,7 @@ package se.joce.springv2.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import se.joce.springv2.model.User;
 import se.joce.springv2.repository.UserRepository;
 import se.joce.springv2.service.UserServiceImpl;
@@ -24,7 +21,7 @@ public class UserViewController {
     @GetMapping("/allUsers")
     private String getAllUsersPage(Model model){
         model.addAttribute("users", userRepository.findAll());
-        return "allUsers";
+        return "all-users";
     }
 
     @GetMapping("/user")
@@ -46,12 +43,12 @@ public class UserViewController {
 //    }
 
     @GetMapping("/showFormForUpdate/{id}")
-    public String showUpdateUserForm(@PathVariable Integer id, Model model){
+    public String showUpdateUserForm(@PathVariable("id") Integer id, Model model){
 
         try {
             User user = userServiceImpl.getUserByID(id);
             model.addAttribute("user", user);
-            return "updateUser";
+            return "update-user";
 
         }catch(IllegalArgumentException e){
             System.out.println("Invalid user id, exception: " + e);
@@ -59,9 +56,23 @@ public class UserViewController {
         }
     }
 
+    @PostMapping("/saveUser")
+    public String saveUser(@ModelAttribute("user") User user){
+        if(userServiceImpl.registerNewUser(user)==null){
+            return "redirect:/myTodoList/invalidEmail";
+        }
+
+        return"redirect:/myTodoList/allUsers";
+    }
+
     @GetMapping("/invalidId")
     public String getInvalidIdPage(){
-        return "invalidId";
+        return "invalid-id";
+    }
+
+    @GetMapping("/invalidEmail")
+    public String getInvalidEmailPage(){
+        return "invalid-email";
     }
 
     @GetMapping("/admin")
