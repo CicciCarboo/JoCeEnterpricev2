@@ -47,12 +47,22 @@ public class UserViewController {
 
     @GetMapping("/showFormForUpdate/{id}")
     public String showUpdateUserForm(@PathVariable Integer id, Model model){
-        User user = userServiceImpl.getUserByID(id);
-        model.addAttribute("user", user);
 
-        return "updateUser";
+        try {
+            User user = userServiceImpl.getUserByID(id);
+            model.addAttribute("user", user);
+            return "updateUser";
+
+        }catch(IllegalArgumentException e){
+            System.out.println("Invalid user id, exception: " + e);
+            return "redirect:/myTodoList/invalidId";
+        }
     }
 
+    @GetMapping("/invalidId")
+    public String getInvalidIdPage(){
+        return "invalidId";
+    }
 
     @GetMapping("/admin")
     private String getAdminPage(){

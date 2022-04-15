@@ -29,7 +29,7 @@ public class UserRestController {
         try {
             User user = userService.getUserByID(id);
             return new ResponseEntity<User>(user, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
+        } catch (IllegalArgumentException e) {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
     }
@@ -62,7 +62,7 @@ public class UserRestController {
             message = "User with id " + id + " has been successfully updated";
             httpHeaders.add("description", message);
             return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).build();
-        } catch (NoSuchElementException e) {
+        } catch (IllegalArgumentException e) {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
     }
