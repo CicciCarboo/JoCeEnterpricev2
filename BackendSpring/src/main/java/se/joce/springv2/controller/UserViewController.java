@@ -30,18 +30,6 @@ public class UserViewController {
         return "user";
     }
 
-
-    //Template
-//    @PostMapping("/adduser")
-//    public String addUser(@Valid User user, BindingResult result, Model model) {
-//        if (result.hasErrors()) {
-//            return "add-user";
-//        }
-//
-//        userRepository.save(user);
-//        return "redirect:/index";
-//    }
-
     @GetMapping("/showFormForUpdate/{id}")
     public String showUpdateUserForm(@PathVariable("id") Integer id, Model model){
 
@@ -62,6 +50,14 @@ public class UserViewController {
             return "redirect:/myTodoList/invalidEmail";
         }
 
+        return"redirect:/myTodoList/allUsers";
+    }
+
+    @GetMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable("id") Integer id){
+//        TODO: validate id
+        String message = userServiceImpl.deleteUserById(id);
+        System.out.println("From deleteUser/{id}: " + message);//Error: request GET method
         return"redirect:/myTodoList/allUsers";
     }
 

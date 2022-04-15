@@ -29,7 +29,7 @@
         <td th:text="${user.email}"></td>
         <td th:text="${user.password}"></td>
         <td><a th:href="@{/myTodoList/showFormForUpdate/{id}(id=${user.id})}" class="btn btn-primary">Update</a></td>
-        <td><a th:href="@{/myTodoList/delete-user/{id}(id=${user.id})}" class="btn btn-primary">Delete</a></td>
+        <td><a th:href="@{/myTodoList/deleteUser/{id}(id=${user.id})}" class="btn btn-primary">Delete</a></td>
     </tr>
     </tbody>
 </table>
