@@ -71,6 +71,7 @@ public class UserRestController {
         }
     }
 
+//    TODO handle invalid id
     @DeleteMapping("/delete/{id}")
     public String deleteUserById(@PathVariable Integer id) {
         userService.deleteUserById(id);

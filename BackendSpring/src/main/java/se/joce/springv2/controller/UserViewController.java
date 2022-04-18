@@ -37,6 +37,7 @@ public class UserViewController {
             return "add-user-form";
     }
 
+//    TODO: add id to model, otherwise the DB will think that the query wants to create a new entity.
     @GetMapping("/showFormForUpdate/{id}")
     public String showUpdateUserForm(@PathVariable("id") Integer id, Model model){
 
