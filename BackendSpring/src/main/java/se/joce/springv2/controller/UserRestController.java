@@ -39,13 +39,17 @@ public class UserRestController {
         Optional<User> user = userService.getUserByEmail(email);
         if (user.isEmpty()) return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 
+//        TODO: return user to frontend via body?/C
         ResponseEntity.ok().body(user);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @PostMapping("/add/new")
     public String registerNewUser(@RequestBody User user) {
-        userService.registerNewUser(user);
+
+        if(!userService.registerNewUser(user)){
+            return "E-mail address already in use, choose another e-mail address.";
+        }
         return "New user has been created";
     }
 
