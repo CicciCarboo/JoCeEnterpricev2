@@ -61,10 +61,10 @@ public class UserViewController {
         }
     }
 
-    @PostMapping("/updateUser")
-    public String updateUser(User user){
+    @PostMapping("/updateUser/{idToUpdate}")
+    public String updateUser(@PathVariable("idToUpdate") Integer idToUpdate, User user){
 
-        userServiceImpl.updateUser(user.getId(), user);
+        userServiceImpl.updateUser(idToUpdate, user);
         return "redirect:/myTodoList/allUsers";
     }
 
