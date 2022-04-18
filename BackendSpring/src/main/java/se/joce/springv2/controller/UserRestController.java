@@ -46,7 +46,7 @@ public class UserRestController {
     @PostMapping("/add/new")
     public String registerNewUser(@RequestBody User user) {
 
-        if(userService.canRegisterNewUser(user)){
+        if(!userService.canRegisterNewUser(user)){
             return "E-mail address already in use, choose another e-mail address.";
         }
         return "New user has been created";

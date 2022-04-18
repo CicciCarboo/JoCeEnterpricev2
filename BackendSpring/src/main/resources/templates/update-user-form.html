@@ -13,7 +13,11 @@
     <form action="#" th:action="@{/myTodoList/updateUser/{idToUpdate}(idToUpdate=${user.id})}" th:object = "${user}" method="post">
         <label for="id">id</label>
         <input type = "text" readonly th:field="*{id}" id="id" class="form-control mb-4 col-4">
-
+        <label for="role">Choose role: </label>
+        <select name="role" id="role" th:field="*{userRole}">
+            <option th:value="USER">User</option>
+            <option th:value="ADMIN">Admin</option>
+        </select>
         <label for="name">Name</label>
         <input type = "text" required th:field="*{name}" id="name" class="form-control mb-4 col-4">
 

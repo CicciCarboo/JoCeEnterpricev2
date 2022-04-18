@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import se.joce.springv2.security.UserRole;
 
 import javax.persistence.*;
 
@@ -28,4 +29,7 @@ public class User {
 
     @Column(name = "email")
     private String email;
+
+    @Column (name = "user_role")
+    private UserRole userRole;
 }
