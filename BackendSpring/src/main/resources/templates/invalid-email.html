@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeLeaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Invalid e-mail</title>
@@ -11,8 +11,9 @@
 <!-- <h2 th:text="${status +' '+ error}"></h2>-->
 <h4>We are sorry, the email is already in use, please use another one..</h4>
 <br>
-<td> <a th:href="@{/myTodoList/allUsers}" class="btn btn-primary">Return to All users</a></td>
-<td> <a th:href="@{/myTodoList/admin}" class="btn btn-primary">Return to Admin page</a></td>
-
+<div class="d-flex justify-content-center p-4">
+    <a th:href="@{/myTodoList/allUsers}" class="btn btn-primary">Return to All users</a>
+    <a th:href="@{/myTodoList/admin}" class="btn btn-primary">Return to Admin page</a>
+</div>
 </body>
 </html>

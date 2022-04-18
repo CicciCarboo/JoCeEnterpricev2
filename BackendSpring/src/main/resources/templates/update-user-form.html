@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Update user</title>
@@ -9,17 +9,16 @@
 </head>
 <body>
 <div class="container">
-    <h1 class="text-center">Update user</h1>
+    <h1 class="text-center p-4">Update user</h1>
     <form action="#" th:action="@{/myTodoList/updateUser/{idToUpdate}(idToUpdate=${user.id})}" th:object = "${user}" method="post">
-    <!-- Added hidden form field to handle update, what does that mean???/C -->
         <label for="id">id</label>
         <input type = "text" readonly th:field="*{id}" id="id" class="form-control mb-4 col-4">
 
         <label for="name">Name</label>
         <input type = "text" required th:field="*{name}" id="name" class="form-control mb-4 col-4">
 
-        <label for="name">Email</label>
-        <input type = "email" required th:field="*{email}" id="e-mail" class="form-control mb-4 col-4">
+        <label for="email">Email</label>
+        <input type = "email" required th:field="*{email}" id="email" class="form-control mb-4 col-4">
 
         <label for="password">Password</label>
         <input type = "password" minlength="3" required th:field="*{password}" id="password" class="form-control mb-4 col-4">
