@@ -37,14 +37,23 @@ public class UserViewController {
             return "add-user-form";
     }
 
-//    TODO: add id to model, otherwise the DB will think that the query wants to create a new entity.
+    @PostMapping("/saveUser")
+    public String saveUser(@ModelAttribute("user") User user){
+
+        if(!userServiceImpl.canRegisterNewUser(user)){
+            return "redirect:/myTodoList/invalidEmail";
+        }
+
+        return"redirect:/myTodoList/allUsers";
+    }
+
     @GetMapping("/showFormForUpdate/{id}")
     public String showUpdateUserForm(@PathVariable("id") Integer id, Model model){
 
         try {
             User user = userServiceImpl.getUserByID(id);
             model.addAttribute("user", user);
-            return "update-user";
+            return "update-user-form";
 
         }catch(IllegalArgumentException e){
             System.out.println("Invalid user id, exception: " + e);
@@ -52,22 +61,27 @@ public class UserViewController {
         }
     }
 
-    @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") User user){
+    @PostMapping("/updateUser")
+    public String updateUser(User user){
 
-        if(!userServiceImpl.registerNewUser(user)){
-            return "redirect:/myTodoList/invalidEmail";
-        }
-
-        return"redirect:/myTodoList/allUsers";
+        userServiceImpl.updateUser(user.getId(), user);
+        return "redirect:/myTodoList/allUsers";
     }
 
     @GetMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") Integer id){
-//        TODO: validate id
-        String message = userServiceImpl.deleteUserById(id);
-        System.out.println("From deleteUser/{id}: " + message);
-        return"redirect:/myTodoList/allUsers";
+        try {
+            userServiceImpl.getUserByID(id);
+            String message = userServiceImpl.deleteUserById(id);
+            System.out.println("From deleteUser/{id}: " + message);
+            return"redirect:/myTodoList/allUsers";
+
+        }catch(IllegalArgumentException e){
+            System.out.println("Invalid user id, exception: " + e);
+            return "redirect:/myTodoList/invalidId";
+        }
+
+
     }
 
     @GetMapping("/invalidId")

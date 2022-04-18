@@ -10,7 +10,7 @@ public interface UserService {
     List<User> getAllUsers();
     User getUserByID(Integer id);
     Optional<User> getUserByEmail(String email);
-    boolean registerNewUser(User user);
+    boolean canRegisterNewUser(User user);
     Optional<User> updateUser(Integer id, User user);
     String deleteUserById(Integer id);
 

@@ -9,7 +9,6 @@ import se.joce.springv2.model.User;
 import se.joce.springv2.service.UserService;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -47,7 +46,7 @@ public class UserRestController {
     @PostMapping("/add/new")
     public String registerNewUser(@RequestBody User user) {
 
-        if(!userService.registerNewUser(user)){
+        if(userService.canRegisterNewUser(user)){
             return "E-mail address already in use, choose another e-mail address.";
         }
         return "New user has been created";
@@ -71,10 +70,9 @@ public class UserRestController {
         }
     }
 
-//    TODO handle invalid id
     @DeleteMapping("/delete/{id}")
     public String deleteUserById(@PathVariable Integer id) {
-        userService.deleteUserById(id);
-        return "User with id " + id + " is successfully deleted";
+        String message = userService.deleteUserById(id);
+        return message;
     }
 }
