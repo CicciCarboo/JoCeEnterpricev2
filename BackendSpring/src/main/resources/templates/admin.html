@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>AdminPage</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
 </head>
 <body>
-<h1>Welcome to admin page</h1>
-<a th:href="@{/myTodoList/allUsers}">Go to allUsers page</a>
+<div class="container text-center p-4">
+    <h1>Welcome to admin page</h1>
+    <div class="p-4">
+        <a th:href="@{/myTodoList/allUsers}" class="btn btn-primary mr-2">Show all users</a>
+        <a th:href="@{/myTodoList/adminUsers}" class="btn btn-primary">Show only administrators</a>
+    </div>
+</div>
 </body>
 </html>

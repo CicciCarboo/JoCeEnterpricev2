@@ -75,4 +75,9 @@ public class UserRestController {
         String message = userService.deleteUserById(id);
         return message;
     }
+
+    @GetMapping("/allAdmin")
+    public List<User> getAdminUsers() {
+        return userService.getAllAdmin();
+    }
 }

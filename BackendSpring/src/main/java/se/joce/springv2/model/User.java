@@ -31,5 +31,6 @@ public class User {
     private String email;
 
     @Column (name = "user_role")
+    @Enumerated(EnumType.STRING)
     private UserRole userRole;
 }

@@ -34,6 +34,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getAllAdmin() {
+        List<User> allAdminUsers = userRepository.getAllAdmin();
+        return allAdminUsers;
+    }
+
+    @Override
     public boolean canRegisterNewUser(User user) {
 
 //      If new user entity is registered for the first time, there is no id, thus continue to validate e-mail.

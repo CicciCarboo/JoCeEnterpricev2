@@ -24,6 +24,13 @@ public class UserViewController {
         return "all-users";
     }
 
+    @GetMapping("/adminUsers")
+    private String getAdminUsers(Model model){
+//        get users where user_role is ADMIN
+        model.addAttribute("users", userServiceImpl.getAllAdmin());
+        return "admin-list";
+    }
+
     @GetMapping("/user")
     private String getUser(Model model, String email) {
         model.addAttribute("users", userRepository.findByEmail(email));
