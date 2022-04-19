@@ -13,14 +13,11 @@ import se.joce.springv2.service.UserServiceImpl;
 public class UserViewController {
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     UserServiceImpl userServiceImpl;
 
     @GetMapping("/allUsers")
     private String getAllUsersPage(Model model){
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userServiceImpl.getAllUsers());
         return "all-users";
     }
 
@@ -33,7 +30,7 @@ public class UserViewController {
 
     @GetMapping("/user")
     private String getUser(Model model, String email) {
-        model.addAttribute("users", userRepository.findByEmail(email));
+        model.addAttribute("users", userServiceImpl.getUserByEmail(email));
         return "user";
     }
 
