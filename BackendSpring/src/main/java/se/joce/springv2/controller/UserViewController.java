@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import se.joce.springv2.model.User;
-import se.joce.springv2.repository.UserRepository;
 import se.joce.springv2.service.UserServiceImpl;
 
 @Controller
@@ -28,9 +27,9 @@ public class UserViewController {
         return "admin-list";
     }
 
-    @GetMapping("/user")
-    private String getUser(Model model, String email) {
-        model.addAttribute("users", userServiceImpl.getUserByEmail(email));
+    @GetMapping("/getUserPage/{id}")
+    private String getUser(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("user", userServiceImpl.getUserByID(id));
         return "user";
     }
 

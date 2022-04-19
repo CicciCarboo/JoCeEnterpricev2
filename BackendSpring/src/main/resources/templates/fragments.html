@@ -4,13 +4,13 @@
 <!--/*@thymesVar id="item" type="com.wimdeblauwe.examples.todomvcthymeleaf.todoitem.web.TodoItemController.TodoItemDto"*/-->
 <li th:fragment="todoItem(item)" th:classappend="${item.completed?'completed':''}">
   <div class="view">
-    <form th:action="@{/{id}/toggle(id=${item.id})}" th:method="put">
+    <form th:action="@{/myTodoList/todolist/{id}/toggle(id=${item.id})}" th:method="put">
       <input class="toggle" type="checkbox"
              onchange="this.form.submit()"
              th:attrappend="checked=${item.completed?'true':null}">
       <label th:text="${item.title}">Taste JavaScript</label>
     </form>
-    <form th:action="@{/{id}(id=${item.id})}" th:method="delete">
+    <form th:action="@{/myTodoList/todolist/{id}(id=${item.id})}" th:method="delete">
       <button class="destroy"></button>
     </form>
   </div>

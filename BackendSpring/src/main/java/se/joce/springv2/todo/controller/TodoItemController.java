@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping(value = "/")
+@RequestMapping(value = "/myTodoList/todolist")
 public class TodoItemController {
 
     //TODO: solve 405 error - POST and GET mapping
@@ -22,29 +22,29 @@ public class TodoItemController {
     @Autowired
     private final TodoItemRepository repository;
 
-    @GetMapping("/")
+    @GetMapping
     public String index(Model model) {
         addAttributesForIndex(model, ListFilter.ALL);
-        return "index";
+        return "todolist";
     }
 
     @GetMapping("/active")
     public String indexActive(Model model) {
         addAttributesForIndex(model, ListFilter.ACTIVE);
-        return "index";
+        return "todolist";
     }
 
     @GetMapping("/completed")
     public String indexCompleted(Model model) {
         addAttributesForIndex(model, ListFilter.COMPLETED);
-        return "index";
+        return "todolist";
     }
 
     @PostMapping
     public String addNewTodoItem(@Valid @ModelAttribute("item") TodoItemFormData formData) {
         repository.save(new TodoItem(formData.getTitle(), false));
 
-        return "redirect:/";
+        return "redirect:/myTodoList/todolist";
     }
 
     @PutMapping("/{id}/toggle")
@@ -54,7 +54,7 @@ public class TodoItemController {
 
         todoItem.setCompleted(!todoItem.isCompleted());
         repository.save(todoItem);
-        return "redirect:/";
+        return "redirect:/myTodoList/todolist";
     }
 
     @PutMapping("/toggle-all")
@@ -64,14 +64,14 @@ public class TodoItemController {
             todoItem.setCompleted(!todoItem.isCompleted());
             repository.save(todoItem);
         }
-        return "redirect:/";
+        return "redirect:/myTodoList/todolist";
     }
 
     @DeleteMapping("/{id}")
     public String deleteTodoItem(@PathVariable("id") Long id) {
         repository.deleteById(id);
 
-        return "redirect:/";
+        return "redirect:/myTodoList/todolist";
     }
 
     @DeleteMapping("/completed")
@@ -80,7 +80,7 @@ public class TodoItemController {
         for (TodoItem item : items) {
             repository.deleteById(item.getId());
         }
-        return "redirect:/";
+        return "redirect:/myTodoList/todolist";
     }
 
     private List<TodoItemDto> getTodoItems(ListFilter filter) {
