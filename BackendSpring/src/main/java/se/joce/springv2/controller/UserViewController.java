@@ -1,11 +1,11 @@
 package se.joce.springv2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import se.joce.springv2.model.User;
-import se.joce.springv2.repository.UserRepository;
 import se.joce.springv2.service.UserServiceImpl;
 
 @Controller
@@ -15,7 +15,21 @@ public class UserViewController {
     @Autowired
     UserServiceImpl userServiceImpl;
 
+//    TODO not complete!!!
+//    @PostMapping("/successfullLogin/{email}")
+//    public String sortUserRole(){
+//
+//        return "?";
+//    }
+
+    @GetMapping("/login")
+    public String getLoginPage(){
+
+        return "login";
+    }
+
     @GetMapping("/allUsers")
+//    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     private String getAllUsersPage(Model model){
         model.addAttribute("users", userServiceImpl.getAllUsers());
         return "all-users";
@@ -42,6 +56,7 @@ public class UserViewController {
     }
 
     @PostMapping("/saveUser")
+//    @PreAuthorize("hasAuthority('user:write')")
     public String saveUser(@ModelAttribute("user") User user){
 
         if(!userServiceImpl.canRegisterNewUser(user)){
