@@ -3,28 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>User page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
 </head>
 <body>
-    <h1>Welcome to user page</h1>
-    <h2>My profile</h2>
-    <table>
+<div class="container my-2">
+    <h1 class="text-center p-4">User page</h1>
+    <h2 class="text-center p-4">My profile</h2>
+    <table class="table table-striped table-responsive-md">
         <thead>
         <tr>
+            <th>Id</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>Password</th>
+            <th>Update</th>
         </tr>
         </thead>
         <tbody>
-<!--        <tr th:each="user : ${users}">-->
-<!--            <td th:text="${user.name}"></td>-->
-<!--            <td th:text="${user.email}"></td>-->
-<!--            <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>-->
-<!--            <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>-->
-<!--        </tr>-->
+        <tr th:object = "${user}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.password}"></td>
+            <td><a th:href="@{/myTodoList/showFormForUpdate/{id}(id=${user.id})}" class="btn btn-primary">Update</a></td>
+        </tr>
         </tbody>
     </table>
-    <button><a th:href="@{/myTodoList/todo}">My todo list</a></button>
+    <div style="text-align: center">
+        <button><a th:href="@{/myTodoList/todolist}" type="button" class="btn btn-light">My todo list</a></button>
+    </div>
+</div>
 </body>
 </html>

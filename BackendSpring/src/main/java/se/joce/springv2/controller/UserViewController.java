@@ -42,9 +42,9 @@ public class UserViewController {
         return "admin-list";
     }
 
-    @GetMapping("/user")
-    private String getUser(Model model, String email) {
-        model.addAttribute("users", userServiceImpl.getUserByEmail(email));
+    @GetMapping("/getUserPage/{id}")
+    private String getUser(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("user", userServiceImpl.getUserByID(id));
         return "user";
     }
 
@@ -118,8 +118,9 @@ public class UserViewController {
         return "admin";
     }
 
-    @GetMapping("/todo")
-    private String getTodoPage(){
-        return "todo";
+    @GetMapping("/about")
+    private String getAboutPage(){
+        return "about";
     }
+
 }
