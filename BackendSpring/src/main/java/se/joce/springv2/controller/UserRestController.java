@@ -1,6 +1,5 @@
 package se.joce.springv2.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +14,11 @@ import java.util.Optional;
 @RequestMapping("/api/v1/user")
 public class UserRestController {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
+
+    public UserRestController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public List<User> getUsers() {

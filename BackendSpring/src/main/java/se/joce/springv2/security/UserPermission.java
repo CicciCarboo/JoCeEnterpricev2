@@ -9,7 +9,6 @@ public enum UserPermission {
 
     private final String permission;
 
-    //TODO varför är inte construktorn public?/C
     UserPermission(String permission){
         this.permission = permission;
     }

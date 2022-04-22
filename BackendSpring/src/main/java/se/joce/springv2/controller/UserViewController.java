@@ -1,7 +1,6 @@
 package se.joce.springv2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,42 +11,27 @@ import se.joce.springv2.service.UserServiceImpl;
 @RequestMapping("/myTodoList")
 public class UserViewController {
 
-    @Autowired
-    UserServiceImpl userServiceImpl;
+//    @Autowired UserServiceImpl userServiceImpl; // It is not recommended to inject field like this. It is better to
+//    set the field to private final (limit access to field) and add a constructor to the class. Set @Autowired on
+//    the constructor that holds the injected field, if there are several constructors, otherwise @Autowired isn't necessary.
 
-//    TODO not complete!!!
-//    @PostMapping("/successfullLogin/{email}")
-//    public String sortUserRole(){
-//
-//        return "?";
-//    }
+    private final UserServiceImpl userServiceImpl;
+
+    @Autowired
+    public UserViewController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
+    }
 
     @GetMapping("/login")
     public String getLoginPage(){
-
         return "login";
     }
 
-    @GetMapping("/allUsers")
-//    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    private String getAllUsersPage(Model model){
-        model.addAttribute("users", userServiceImpl.getAllUsers());
-        return "all-users";
-    }
-
-    @GetMapping("/adminUsers")
-    private String getAdminUsers(Model model){
-//        get users where user_role is ADMIN
-        model.addAttribute("users", userServiceImpl.getAllAdmin());
-        return "admin-list";
-    }
-
     @GetMapping("/user")
-    private String getUser(Model model, String email) {
+    public String getUser(Model model, String email) {
         model.addAttribute("users", userServiceImpl.getUserByEmail(email));
         return "user";
     }
-
 
     @GetMapping("/showFormAddUser")
     public String showFormAddUser(Model model, User user){
@@ -56,7 +40,6 @@ public class UserViewController {
     }
 
     @PostMapping("/saveUser")
-//    @PreAuthorize("hasAuthority('user:write')")
     public String saveUser(@ModelAttribute("user") User user){
 
         if(!userServiceImpl.canRegisterNewUser(user)){
@@ -100,7 +83,6 @@ public class UserViewController {
             return "redirect:/myTodoList/invalidId";
         }
 
-
     }
 
     @GetMapping("/invalidId")
@@ -113,13 +95,9 @@ public class UserViewController {
         return "invalid-email";
     }
 
-    @GetMapping("/admin")
-    private String getAdminPage(){
-        return "admin";
-    }
-
     @GetMapping("/todo")
-    private String getTodoPage(){
+    public String getTodoPage(){
         return "todo";
     }
+
 }

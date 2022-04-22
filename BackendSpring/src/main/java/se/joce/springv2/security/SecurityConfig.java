@@ -12,11 +12,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import static se.joce.springv2.security.UserRole.ADMIN;
+import static se.joce.springv2.security.UserRole.*;
 
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
@@ -28,21 +28,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/","/about").permitAll()
-                .antMatchers("/api/**","myTodoList/admin/**").hasAnyRole(ADMIN.name())
+                .antMatchers("/api/**","/admin/**").hasRole(ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
-//                .httpBasic();
-                .formLogin().loginPage("/login").permitAll();
-//                .usernameParameter("email")
-//                .defaultSuccessUrl("/todo").permitAll()
-//                .and()
-//                .logout().logoutSuccessUrl("/").permitAll();
+                .formLogin().permitAll()
+                .and()
+                .logout();
     }
 
+
+//    TODO bryt ut UserDetails från inmemory
     @Bean
     @Override
     protected UserDetailsService userDetailsService() {
@@ -55,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails LottaUser = User.builder()
                 .username("Lotta")
                 .password(passwordEncoder.encode("lotta"))
-                .roles(UserRole.USER.name())
+                .roles(USER.name())
                 .build();
 
         return new InMemoryUserDetailsManager(CicciAdmin, LottaUser);
