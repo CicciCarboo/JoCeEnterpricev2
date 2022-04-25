@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public enum UserRole {
     USER(Sets.newHashSet(
-            USER_READ,
+           USER_READ,
             USER_WRITE)),
     ADMIN(Sets.newHashSet(
             USER_READ,

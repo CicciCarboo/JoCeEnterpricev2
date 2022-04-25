@@ -1,6 +1,7 @@
 package se.joce.springv2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -126,7 +127,7 @@ return user-page}
     public String updateUser(@PathVariable("idToUpdate") Integer idToUpdate, User user) {
 
         userServiceImpl.updateUser(idToUpdate, user);
-        return "redirect:/myTodoList/allUsers";
+        return "redirect:/admin/allUsers";
     }
 
     @GetMapping("/deleteUser/{id}")
@@ -155,6 +156,7 @@ return user-page}
     }
 
     @GetMapping("/todo")
+    //    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public String getTodoPage() {
         return "todo";
     }

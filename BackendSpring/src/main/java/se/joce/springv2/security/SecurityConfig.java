@@ -48,14 +48,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .username("Cicci")
                 .password(passwordEncoder.encode("123"))
                 .roles(ADMIN.name())
-                .authorities(ADMIN.getSimpleGrantedAuthorities())
+//                .authorities(ADMIN.getSimpleGrantedAuthorities())
                 .build();
 
         UserDetails LottaUser = User.builder()
                 .username("Lotta")
                 .password(passwordEncoder.encode("lotta"))
                 .roles(USER.name())
-                .authorities(USER.getSimpleGrantedAuthorities())
+//                .authorities(USER.getSimpleGrantedAuthorities())
                 .build();
 
         return new InMemoryUserDetailsManager(CicciAdmin, LottaUser);
