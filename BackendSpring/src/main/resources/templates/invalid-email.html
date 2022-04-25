@@ -7,13 +7,20 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
 </head>
+<style>
+    body {
+        background-image: url("https://images.unsplash.com/photo-1512386233331-f023884a92e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=895&q=80");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
 <body>
 <!-- <h2 th:text="${status +' '+ error}"></h2>-->
 <h4>We are sorry, the email is already in use, please use another one..</h4>
 <br>
 <div class="d-flex justify-content-center p-4">
-    <a th:href="@{/myTodoList/allUsers}" class="btn btn-primary">Return to All users</a>
-    <a th:href="@{/admin/adminPage}" class="btn btn-primary">Return to Admin page</a>
+    <a th:href="@{/admin/allUsers}" class="btn btn-dark">Return to All users</a>
+    <a th:href="@{/admin/adminPage}" class="btn btn-dark">Return to Admin page</a>
 </div>
 </body>
 </html>

@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-//    TODO bryt ut UserDetails från inmemory
+//    TODO: bryt ut UserDetails från inmemory
     @Bean
     @Override
     protected UserDetailsService userDetailsService() {

@@ -7,6 +7,14 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
 </head>
+<style>
+    body {
+        background-image: url("https://images.unsplash.com/photo-1512386233331-f023884a92e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=895&q=80");
+        background-repeat: no-repeat;
+        background-size: cover;
+        text-align: center;
+    }
+</style>
 <body>
 <div class="container my-2">
 <h1 class="text-center p-4">User Administration Page</h1>
@@ -30,15 +38,18 @@
         <td th:text="${user.name}"></td>
         <td th:text="${user.email}"></td>
         <td th:text="${user.password}"></td>
-        <td><a th:href="@{/myTodoList/showFormForUpdate/{id}(id=${user.id})}" class="btn btn-primary">Update</a></td>
-        <td><a th:href="@{/myTodoList/deleteUser/{id}(id=${user.id})}" class="btn btn-danger">Delete</a></td>
+        <td><a th:href="@{/myTodoList/showFormForUpdate/{id}(id=${user.id})}" class="btn btn-dark">Update</a></td>
+        <td><a th:href="@{/myTodoList/deleteUser/{id}(id=${user.id})}" class="btn btn-secondary">Delete</a></td>
     </tr>
     </tbody>
 </table>
     <div class="p-4">
-        <a th:href="@{/admin/adminUsers}" class="btn btn-primary mr-2">Show only administrators</a>
-        <a th:href="@{/myTodoList/showFormAddUser}" class="btn btn-primary">Add new user</a>
+        <a th:href="@{/admin/adminUsers}" class="btn btn-dark">Show only administrators</a>
+        <a th:href="@{/myTodoList/showFormAddUser}" class="btn btn-dark">Add new user</a>
     </div>
+    <footer>
+        <a th:href="@{/}" class="btn btn-dark">Home page</a>
+    </footer>
 </div>
 </body>
 </html>

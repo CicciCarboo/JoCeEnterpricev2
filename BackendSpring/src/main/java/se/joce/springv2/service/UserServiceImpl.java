@@ -1,22 +1,23 @@
 package se.joce.springv2.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.joce.springv2.model.User;
 import se.joce.springv2.repository.UserRepository;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @AllArgsConstructor
 @Service
+//TODO: add implements UserDetailService
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public List<User> getAllUsers() {
@@ -77,4 +78,18 @@ public class UserServiceImpl implements UserService {
             return "User id: " + id + " is not valid. Error message: \"" + e + "\".";
         }
     }
+
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        Optional<User> userOptional = userRepository.findByUserName(username);
+//        if(userOptional.isEmpty()) {
+//            throw new UsernameNotFoundException("Username not found");
+//        } else {
+//            //Komma åt SimpleGrantedAuth, finns i user role klassen
+//
+//
+//        }
+//        return null;
+//    }
 }

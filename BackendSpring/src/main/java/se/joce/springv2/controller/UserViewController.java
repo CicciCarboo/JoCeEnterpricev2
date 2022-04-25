@@ -24,63 +24,71 @@ public class UserViewController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage(){
+    public String getLoginPage() {
         return "login";
     }
 
-    @GetMapping("/user")
+    @GetMapping("/userPage")
     public String getUser(Model model, String email) {
         model.addAttribute("users", userServiceImpl.getUserByEmail(email));
         return "user";
     }
 
+    //TODO: used this method for user.html body user object - fix!
+//    @GetMapping("/getUserPage/{id}")
+//    private String getUser(@PathVariable("id") Integer id, Model model) {
+//        model.addAttribute("user", userServiceImpl.getUserByID(id));
+//        return "user";
+//    }
+
+
     @GetMapping("/showFormAddUser")
-    public String showFormAddUser(Model model, User user){
+    public String showFormAddUser(Model model, User user) {
         model.addAttribute("user", user);
-            return "add-user-form";
+        return "add-user-form";
     }
 
     @PostMapping("/saveUser")
 //    @PreAuthorize("hasAuthority('user:write')")
-    public String saveUser(@ModelAttribute("user") User user){
+    public String saveUser(@ModelAttribute("user") User user) {
 
-        if(!userServiceImpl.canRegisterNewUser(user)){
+        if (!userServiceImpl.canRegisterNewUser(user)) {
             return "redirect:/myTodoList/invalidEmail";
         }
 
-        return"redirect:/myTodoList/allUsers";
+        return "redirect:/myTodoList/allUsers";
     }
 
     @GetMapping("/showFormForUpdate/{id}")
-    public String showUpdateUserForm(@PathVariable("id") Integer id, Model model){
+    public String showUpdateUserForm(@PathVariable("id") Integer id, Model model) {
 
         try {
             User user = userServiceImpl.getUserByID(id);
             model.addAttribute("user", user);
             return "update-user-form";
 
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Invalid user id, exception: " + e);
             return "redirect:/myTodoList/invalidId";
         }
     }
 
     @PostMapping("/updateUser/{idToUpdate}")
-    public String updateUser(@PathVariable("idToUpdate") Integer idToUpdate, User user){
+    public String updateUser(@PathVariable("idToUpdate") Integer idToUpdate, User user) {
 
         userServiceImpl.updateUser(idToUpdate, user);
         return "redirect:/myTodoList/allUsers";
     }
 
     @GetMapping("/deleteUser/{id}")
-    public String deleteUser(@PathVariable("id") Integer id){
+    public String deleteUser(@PathVariable("id") Integer id) {
         try {
             userServiceImpl.getUserByID(id);
             String message = userServiceImpl.deleteUserById(id);
             System.out.println("From deleteUser/{id}: " + message);
-            return"redirect:/myTodoList/allUsers";
+            return "redirect:/myTodoList/allUsers";
 
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println("Invalid user id, exception: " + e);
             return "redirect:/myTodoList/invalidId";
         }
@@ -88,17 +96,17 @@ public class UserViewController {
     }
 
     @GetMapping("/invalidId")
-    public String getInvalidIdPage(){
+    public String getInvalidIdPage() {
         return "invalid-id";
     }
 
     @GetMapping("/invalidEmail")
-    public String getInvalidEmailPage(){
+    public String getInvalidEmailPage() {
         return "invalid-email";
     }
 
     @GetMapping("/todo")
-    public String getTodoPage(){
+    public String getTodoPage() {
         return "todo";
     }
 

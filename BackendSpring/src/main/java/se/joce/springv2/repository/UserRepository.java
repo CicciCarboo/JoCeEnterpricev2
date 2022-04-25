@@ -11,6 +11,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByEmail(String email);
+//    Optional<User> findByUserName(String userName);
 
     @Query(value="SELECT * FROM users WHERE user_role= 'ADMIN'", nativeQuery=true)
     List<User> getAllAdmin();

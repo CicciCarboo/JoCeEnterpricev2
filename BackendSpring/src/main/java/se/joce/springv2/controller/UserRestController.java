@@ -1,8 +1,10 @@
 package se.joce.springv2.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import se.joce.springv2.model.User;
 import se.joce.springv2.service.UserService;
@@ -15,9 +17,12 @@ import java.util.Optional;
 public class UserRestController {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserRestController(UserService userService) {
+    @Autowired
+    public UserRestController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
@@ -82,4 +87,17 @@ public class UserRestController {
     public List<User> getAdminUsers() {
         return userService.getAllAdmin();
     }
+
+    //TODO: Try adding the logic part in service instead
+    @PostMapping("/register")
+    public boolean registerUser(@RequestParam("name") String name, @RequestParam("password") String password,
+                                @RequestParam("email") String email) {
+        User user = new User();
+        user.setName(name);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setEmail(email);
+        return userService.canRegisterNewUser(user);
+    }
 }
+
+

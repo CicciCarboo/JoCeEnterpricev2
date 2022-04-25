@@ -27,7 +27,6 @@ public enum UserRole {
         return permissions;
     }
 
-    // Från Krillinator: Boiler plate code - .authorities()
     public Set<SimpleGrantedAuthority> getSimpleGrantedAuthorities() {
         Set<SimpleGrantedAuthority> permissions = getPermissions().stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
