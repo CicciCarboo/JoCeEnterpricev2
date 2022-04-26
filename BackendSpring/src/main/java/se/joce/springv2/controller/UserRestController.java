@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import se.joce.springv2.model.User;
@@ -98,6 +99,22 @@ public class UserRestController {
         user.setEmail(email);
         return userService.canRegisterNewUser(user);
     }
+
+    //TODO: test has role - works
+    @GetMapping("/testHasRole")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String getAUthAdmin() {
+        return "ADMIN hasRole is working";
+    }
+
+    //TODO: test has Auth - works
+    @GetMapping("/testAuth")
+    @PreAuthorize("hasAnyAuthority('admin:write', 'admin:read')")
+    public String getAuthorityWrite() {
+
+        return "Has authority 'admin' works";
+    }
+
 }
 
 

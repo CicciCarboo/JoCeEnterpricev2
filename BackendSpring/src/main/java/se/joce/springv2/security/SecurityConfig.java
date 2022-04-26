@@ -30,11 +30,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/about").permitAll()
+                .antMatchers("/","/about", "/login", "/landingPage").permitAll()
                 .antMatchers("/api/**","/admin/**").hasRole(ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/landingPage", true)
                 .and()
                 .logout();
     }
@@ -48,12 +50,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .username("Cicci")
                 .password(passwordEncoder.encode("123"))
                 .roles(ADMIN.name())
+                .authorities(ADMIN.getSimpleGrantedAuthorities())
                 .build();
 
         UserDetails LottaUser = User.builder()
                 .username("Lotta")
                 .password(passwordEncoder.encode("lotta"))
                 .roles(USER.name())
+                .authorities(USER.getSimpleGrantedAuthorities())
                 .build();
 
         return new InMemoryUserDetailsManager(CicciAdmin, LottaUser);

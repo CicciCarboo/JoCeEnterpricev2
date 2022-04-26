@@ -23,11 +23,6 @@ public class UserViewController {
         this.userServiceImpl = userServiceImpl;
     }
 
-    @GetMapping("/login")
-    public String getLoginPage() {
-        return "login";
-    }
-
     @GetMapping("/userPage")
     public String getUser(Model model, String email) {
         model.addAttribute("users", userServiceImpl.getUserByEmail(email));
