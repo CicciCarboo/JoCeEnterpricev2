@@ -16,12 +16,7 @@ import static se.joce.springv2.security.UserRole.ADMIN;
 @Controller
 @RequestMapping("/myTodoList")
 public class UserViewController {
-
-//    @Autowired UserServiceImpl userServiceImpl; // It is not recommended to inject field like this. It is better to
-//    set the field to private final (limit access to field) and add a constructor to the class. Set @Autowired on
-//    the constructor that holds the injected field, if there are several constructors, otherwise @Autowired isn't necessary.
-
-    private final UserServiceImpl userServiceImpl;
+private final UserServiceImpl userServiceImpl;
 
     @Autowired
     public UserViewController(UserServiceImpl userServiceImpl) {
@@ -153,12 +148,6 @@ return user-page}
     @GetMapping("/invalidEmail")
     public String getInvalidEmailPage() {
         return "invalid-email";
-    }
-
-    @GetMapping("/todo")
-    //    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public String getTodoPage() {
-        return "todo";
     }
 
 }
