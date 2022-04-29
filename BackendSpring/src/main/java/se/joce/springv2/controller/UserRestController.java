@@ -89,16 +89,17 @@ public class UserRestController {
         return userService.getAllAdmin();
     }
 
-    //TODO: Try adding the logic part in service instead
-    @PostMapping("/register")
-    public boolean registerUser(@RequestParam("name") String name, @RequestParam("password") String password,
-                                @RequestParam("email") String email) {
-        User user = new User();
-        user.setName(name);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setEmail(email);
-        return userService.canRegisterNewUser(user);
-    }
+    //TODO: do we need this?
+//    //TODO: Try adding the logic part in service instead
+//    @PostMapping("/register")
+//    public boolean registerUser(@RequestParam("name") String name, @RequestParam("password") String password,
+//                                @RequestParam("email") String email) {
+//        User user = new User();
+//        user.setName(name);
+//        user.setPassword(passwordEncoder.encode(password));
+//        user.setEmail(email);
+//        return userService.canRegisterNewUser(user);
+//    }
 
     //TODO: test has role - works
     @GetMapping("/testHasRole")

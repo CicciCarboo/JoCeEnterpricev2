@@ -14,13 +14,16 @@
         background-size: cover;
         text-align: center;
     }
+    h1 {
+        margin-top: 10vh;
+    }
+    a {
+        margin-top: 20vh;
+    }
 </style>
 <body>
-<h1>
-    Landing Page
-</h1>
-<a th:href="@{/about}" class="btn btn-secondary">About</a>
-<a th:href="@{/myTodoList/userPage}" class="btn btn-light">User page</a>
+<h1>Landing Page</h1>
+<a th:href="@{/myTodoList/userPage}" class="btn btn-dark">User page</a>
 <a th:href="@{/admin/adminPage}" class="btn btn-dark">Admin page</a>
 </body>
 </html>

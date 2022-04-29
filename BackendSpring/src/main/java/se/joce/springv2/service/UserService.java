@@ -1,5 +1,6 @@
 package se.joce.springv2.service;
 
+import se.joce.springv2.model.Role;
 import se.joce.springv2.model.User;
 
 import java.util.List;
@@ -14,5 +15,9 @@ public interface UserService {
     boolean canRegisterNewUser(User user);
     Optional<User> updateUser(Integer id, User user);
     String deleteUserById(Integer id);
+
+    User saveUser(User user);
+    Role saveRole(Role role);
+    void addRoleToUser(String username, String roleName);
 
 }
