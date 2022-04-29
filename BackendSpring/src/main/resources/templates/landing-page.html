@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" />
+</head>
+
+<style>
+    body {
+        background-image: url("https://images.unsplash.com/photo-1512386233331-f023884a92e8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=895&q=80");
+        background-repeat: no-repeat;
+        background-size: cover;
+        text-align: center;
+    }
+</style>
+<body>
+<h1>
+    Landing Page
+</h1>
+<a th:href="@{/about}" class="btn btn-secondary">About</a>
+<a th:href="@{/myTodoList/getUserPage/1}" class="btn btn-light">User page</a>
+<a th:href="@{/admin/adminPage}" class="btn btn-dark">Admin page</a>
+</body>
+</html>

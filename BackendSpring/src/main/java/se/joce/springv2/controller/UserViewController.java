@@ -101,7 +101,7 @@ return user-page}
             return "redirect:/myTodoList/invalidEmail";
         }
 
-        return "redirect:/myTodoList/allUsers";
+        return "redirect:/admin/allUsers";
     }
 
     @GetMapping("/showFormForUpdate/{id}")
@@ -131,7 +131,7 @@ return user-page}
             userServiceImpl.getUserByID(id);
             String message = userServiceImpl.deleteUserById(id);
             System.out.println("From deleteUser/{id}: " + message);
-            return "redirect:/myTodoList/allUsers";
+            return "redirect:/admin/allUsers";
 
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid user id, exception: " + e);
