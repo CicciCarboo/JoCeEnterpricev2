@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/about", "/login", "/landingPage").permitAll()
+                .antMatchers("/","/about", "/login", "/landingPage").permitAll()//TODO permitAll() too early can block rules made after this line according to Romanian Coder/C
                 .antMatchers("/api/**","/admin/**").hasRole(ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
