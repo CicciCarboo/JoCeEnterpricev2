@@ -30,8 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/about", "/login", "/landingPage").permitAll()//TODO permitAll() too early can block rules made after this line according to Romanian Coder/C
-                .antMatchers("/api/**","/admin/**").hasRole(ADMIN.name())
+                .antMatchers("/","/about", "/login", "/landingPage").permitAll()//TODO a to permissive permitAll() too early can block rules made after this line according to Romanian Coder episode #16?/C
+                .antMatchers("/api/**","/admin/**").hasRole(ADMIN.name())//TODO .authorities() has higher authority than .hasRole(). If you want both, then put the role within like so: .authorities("user:read", "user:write", "ROLE_ADMIN") acc. to R.C episode #18
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
