@@ -4,20 +4,33 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.joce.springv2.model.User;
 import se.joce.springv2.repository.UserRepository;
+import se.joce.springv2.security.UserPrincipal;
 
 import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        //TODO try-catch
+        User user = this.userRepository.findByUsername(username);
+        UserPrincipal userPrincipal = new UserPrincipal(user);
+        return userPrincipal;
+    }
 
     @Override
     public List<User> getAllUsers() {
@@ -60,6 +73,8 @@ public class UserServiceImpl implements UserService {
                 return false;
             }
         }
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         System.out.println("User " + user.getUsername() + " saved in DB.");
         return true;
@@ -72,6 +87,7 @@ public class UserServiceImpl implements UserService {
 
         if (userOptional.isEmpty()) return userOptional;
 
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return userOptional;
     }
@@ -86,4 +102,5 @@ public class UserServiceImpl implements UserService {
             return "User id: " + id + " is not valid. Error message: \"" + e + "\".";
         }
     }
+
 }

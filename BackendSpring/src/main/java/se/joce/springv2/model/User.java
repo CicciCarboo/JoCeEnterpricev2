@@ -4,6 +4,10 @@ import lombok.*;
 import se.joce.springv2.security.UserRole;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 //
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,7 +16,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(name = "unique_user_email", columnNames = { "email" })})
+        @UniqueConstraint(name = "unique_user_email", columnNames = {"email"})})
 public class User {
 
     @Id
@@ -37,12 +41,24 @@ public class User {
 
     private String permissions = ""; //TODO to be transformed to sets or lists?
 
-//    public User(String name, String username, String password, String email, int active, String roles, String permissions) {
-//    }
-
-
 //    Not needed anymore?
 //    @Column (name = "user_role")
 //    @Enumerated(EnumType.STRING)
 //    private UserRole userRole;
+
+    // Helper method to enable mapping between User and UserPrincipal (UserDetails interface)
+    public List<String> getRoleList() {
+        if (this.roles.length() > 0) {
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
+    }
+
+    // Helper method to enable mapping between User and UserPrincipal (UserDetails interface)
+    public List<String> getPermissionList() {
+        if (this.permissions.length() > 0) {
+            return Arrays.asList(this.permissions.split(","));
+        }
+        return new ArrayList<>();
+    }
 }

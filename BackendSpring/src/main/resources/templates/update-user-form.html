@@ -14,7 +14,7 @@
         <label for="id">id</label>
         <input type = "text" readonly th:field="*{id}" id="id" class="form-control mb-4 col-4">
         <label for="role">Choose role: </label>
-        <select name="role" id="role" th:field="*{userRole}">
+        <select name="role" id="role" th:field="*{roles}">
             <option th:value="USER">User</option>
             <option th:value="ADMIN">Admin</option>
         </select>

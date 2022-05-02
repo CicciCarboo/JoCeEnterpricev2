@@ -6,7 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-
+// 2022-05-02 Not in use during R.C tutorial, which does it in another way.
 public enum UserRole {
     USER(Sets.newHashSet(
            USER_READ,

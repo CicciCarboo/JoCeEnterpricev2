@@ -25,7 +25,7 @@
         <input type="text" th:field="*{name}" id="name" required placeholder="Name" class="form-control mb-4 col-4">
         <!--  To be used later???/C  <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         <label for="role">Choose role: </label>
-        <select name="role" id="role" th:field="*{userRole}">
+        <select name="role" id="role" th:field="*{roles}">
             <option th:value="USER">User</option>
             <option th:value="ADMIN">Admin</option>
         </select>
