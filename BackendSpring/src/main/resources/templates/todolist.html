@@ -15,12 +15,13 @@
         background-repeat: no-repeat;
         background-size: cover;
         text-align: center;
+        margin-top: 13rem;
     }
 </style>
 <body>
 <section class="todoapp">
     <header class="header">
-        <h1 style="color: white">Todolist</h1>
+        <h1 style="color: #212529; margin-top: 10vh">Todolist</h1>
         <form th:action="@{/myTodoList/todolist}" method="post" th:object="${item}"  style="border-color: white">
             <input class="new-todo" placeholder="What needs to be done?" autofocus
                    th:field="*{title}">
