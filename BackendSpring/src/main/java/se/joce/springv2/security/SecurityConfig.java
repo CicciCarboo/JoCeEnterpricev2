@@ -1,8 +1,9 @@
 package se.joce.springv2.security;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -10,52 +11,58 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import se.joce.springv2.security.filter.CustomAuthenticationFilter;
 import se.joce.springv2.security.filter.CustomAuthorizationFilter;
 
-import static se.joce.springv2.security.UserRole.*;
-
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
+   // private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-    public SecurityConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
-        this.userDetailsService = userDetailsService;
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Value("${jwt.key}")
+    private String key;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+        auth.
+                userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     //TODO: defaultSuccessfulUrl not working!
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
-
+//        customAuthenticationFilter.setFilterProcessesUrl("/");
 
         http.csrf().disable();
-        //http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/","/about", "/login/**", "/landingPage").permitAll();
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        //http.authorizeRequests().antMatchers("/resources/**", "/webjars/**","/assets/**").permitAll();
+        http.authorizeRequests().antMatchers("/", "/login/**", "/about", "/landingPage").permitAll();
+        http.authorizeRequests().antMatchers("/api/**", "/admin/**", "/myTodoList/**").permitAll();
         //http.authorizeRequests().antMatchers("/api/**","/admin/**", "/myTodoList/**").hasRole("ADMIN"); //Tested hasRole(ADMIN.name())
-        http.authorizeRequests().antMatchers( "/api/**","/admin/**", "/myTodoList/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers( "/api/**","/admin/**", "/myTodoList/**").hasAuthority("ROLE_ADMIN");
         //http.authorizeRequests().antMatchers("/api/**", "/myTodoList/userPage/**").hasAnyAuthority("ROLE_USER, ROLE_ADMIN");
         //http.authorizeRequests().antMatchers("/api/**", "/myTodoList/userPage/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
-        http.formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/landingPage", true).and().logout();
+        //defaultSuccessfulUrl("", true)
+        http.formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/landingPage", true).and().logout(); //.defaultSuccessUrl("/landingPage", true)
+
+//                .successHandler(new AuthenticationSuccessHandler() {
+//            @Override
+//            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+//                redirectStrategy.sendRedirect(request, response, "/landingPage");
+//            }
+//        }).permitAll().and().logout();
         http.addFilter(customAuthenticationFilter);
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new CustomAuthorizationFilter(key), UsernamePasswordAuthenticationFilter.class);
 
 
 //        http
@@ -103,4 +110,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //        return new InMemoryUserDetailsManager(CicciAdmin, LottaUser);
 //    }
-}
+
+ }

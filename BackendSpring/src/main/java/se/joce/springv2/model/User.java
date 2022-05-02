@@ -32,9 +32,9 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column (name = "user_role")
-    @Enumerated(EnumType.STRING)
-    private UserRole userRole;
+//    @Column (name = "user_role")
+//    @Enumerated(EnumType.STRING)
+//    private UserRole userRole;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles = new ArrayList<>();

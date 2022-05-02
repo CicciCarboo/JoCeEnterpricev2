@@ -20,7 +20,6 @@ public class Role {
     private Integer id;
     private String name;
 
-    //Tried to add this here
-//    @Enumerated(EnumType.STRING)
-//    private UserRole userRole;
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 }

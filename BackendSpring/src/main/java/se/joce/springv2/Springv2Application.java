@@ -22,11 +22,11 @@ public class Springv2Application {
     @Bean
     CommandLineRunner run(UserService userService) {
         return args -> {
-            userService.saveRole(new Role(null, "ROLE_ADMIN")); //Tried to add UserRole.ADMIN here via Role...
-            userService.saveRole(new Role(null, "ROLE_USER"));
+            userService.saveRole(new Role(null, "ROLE_ADMIN",  UserRole.ADMIN)); //Tried to add UserRole.ADMIN here via Role...
+            userService.saveRole(new Role(null, "ROLE_USER", UserRole.USER));
 
-            userService.saveUser(new User(null, "Cicci", "123", "cicci123@gmail.com", UserRole.ADMIN, new ArrayList<>())); //Tried to add UserRole.ADMIN here via User...
-            userService.saveUser(new User(null, "Lotta", "123", "lotta123@gmail.com", UserRole.USER, new ArrayList<>()));
+            userService.saveUser(new User(null, "Cicci", "123", "cicci123@gmail.com", new ArrayList<>())); //Tried to add UserRole.ADMIN here via User...
+            userService.saveUser(new User(null, "Lotta", "123", "lotta123@gmail.com", new ArrayList<>()));
 
             userService.addRoleToUser("Cicci", "ROLE_ADMIN");
             userService.addRoleToUser("Lotta", "ROLE_USER");
