@@ -42,21 +42,22 @@ return user-page}
 //        return "login";
 //    }
 
-    @GetMapping("/handleLogin/{userName}")
-    public String validateUserTowardsDB(@PathVariable("userName") String userName, Model model){
-
-        Optional<User> user = userServiceImpl.getUserByName(userName);
-        if(user.isEmpty()){
-            throw new EntityNotFoundException("User not found.");
-        }
-
-        model.addAttribute("user", userServiceImpl.getUserByID(user.get().getId()));
-
-        if(user.get().getUserRole() == ADMIN){
-            return "admin";
-        }else
-            return "user";
-    }
+//   Not working yet, due to getRole
+//    @GetMapping("/handleLogin/{userName}")
+//    public String validateUserTowardsDB(@PathVariable("userName") String userName, Model model){
+//
+//        Optional<User> user = userServiceImpl.getUserByName(userName);
+//        if(user.isEmpty()){
+//            throw new EntityNotFoundException("User not found.");
+//        }
+//
+//        model.addAttribute("user", userServiceImpl.getUserByID(user.get().getId()));
+//
+//        if(user.get().getUserRole() == ADMIN){
+//            return "admin";
+//        }else
+//            return "user";
+//    }
 
 //    @GetMapping("/handleLogin/{emailUsedForLogin}")
 //    public String validateUserTowardsDB(@PathVariable("emailUsedForLogin") String emailUsedForLogin, Model model){
