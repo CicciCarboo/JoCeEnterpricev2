@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","/about", "/login", "/landingPage").permitAll()//TODO a to permissive permitAll() too early can block rules made after this line according to Romanian Coder episode #16?/C
                 .antMatchers("/api/**","/admin/**").hasAuthority("ADMIN")//TODO .authorities() has higher authority than .hasRole(). If you want both, then put the role within like so: .authorities("user:read", "user:write", "ROLE_ADMIN") acc. to R.C episode #18
-                .anyRequest().authenticated()
+                .anyRequest().authenticated() //TODO is this needed?
                 .and()
                 .formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/landingPage", true)
