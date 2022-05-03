@@ -1,8 +1,6 @@
 package se.joce.springv2.service;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,7 +24,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        //TODO try-catch
         User user = this.userRepository.findByUsername(username);
         UserPrincipal userPrincipal = new UserPrincipal(user);
         return userPrincipal;
@@ -43,11 +40,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Optional<User> getUserByName(String name){
-        return userRepository.findByName(name);
-    }
-
-    @Override
     public Optional<User> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
@@ -61,11 +53,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public boolean canRegisterNewUser(User user) {
         System.out.println("Running canRegisterUser. with user: " + user.getUsername());
-//      If new user entity is registered for the first time, there is no id, thus continue to validate e-mail.
-//        Otherwise, write over user entity with given id via save method.
+
         if (user.getId() == null) {
             System.out.println("user.getId() = " + user.getId());
-//        Check that e-mail is unique
             Optional<User> userWithProposedEmail = getUserByEmail(user.getEmail());
 
             if (userWithProposedEmail.isPresent()) {
@@ -73,7 +63,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 return false;
             }
         }
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         System.out.println("User " + user.getUsername() + " saved in DB.");

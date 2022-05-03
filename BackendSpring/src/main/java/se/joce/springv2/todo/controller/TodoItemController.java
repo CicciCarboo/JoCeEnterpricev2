@@ -17,9 +17,6 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/myTodoList/todolist")
 public class TodoItemController {
 
-    //TODO: solve 405 error - POST and GET mapping
-
-    @Autowired
     private final TodoItemRepository repository;
 
     @GetMapping
