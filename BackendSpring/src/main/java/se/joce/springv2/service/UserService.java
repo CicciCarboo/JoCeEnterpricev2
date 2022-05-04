@@ -9,7 +9,6 @@ public interface UserService {
 
     List<User> getAllUsers();
     User getUserByID(Integer id);
-    Optional<User> getUserByName(String name);
     Optional<User> getUserByEmail(String email);
     List<User> getAllAdmin();
     boolean canRegisterNewUser(User user);

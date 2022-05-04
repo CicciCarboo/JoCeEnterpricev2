@@ -19,7 +19,6 @@ import static se.joce.springv2.security.UserRole.*;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
@@ -40,9 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/about", "/login", "/landingPage").permitAll()//TODO a to permissive permitAll() too early can block rules made after this line according to Romanian Coder episode #16?/C
-                .antMatchers("/api/**","/admin/**").hasAuthority("ADMIN")//TODO .authorities() has higher authority than .hasRole(). If you want both, then put the role within like so: .authorities("user:read", "user:write", "ROLE_ADMIN") acc. to R.C episode #18
-                .anyRequest().authenticated() //TODO is this needed?
+                .antMatchers("/","/about", "/login").permitAll()
+                .antMatchers("/api/**","/admin/**").hasAuthority("ADMIN")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/landingPage", true)
@@ -59,7 +58,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return daoAuthenticationProvider;
     }
 
-//    TODO bryt ut UserDetails från inmemory
 //    @Bean
 //    @Override
 //    protected UserDetailsService userDetailsService() {

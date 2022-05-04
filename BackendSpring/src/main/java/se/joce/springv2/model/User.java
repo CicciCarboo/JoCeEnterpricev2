@@ -1,17 +1,14 @@
 package se.joce.springv2.model;
 
 import lombok.*;
-import se.joce.springv2.security.UserRole;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-//
 @AllArgsConstructor
 @NoArgsConstructor
-//@RequiredArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -37,14 +34,9 @@ public class User {
 
     private int active;
 
-    private String roles = ""; //TODO to be transformed to sets or lists?
+    private String roles = "";
 
-    private String permissions = ""; //TODO to be transformed to sets or lists?
-
-//    Not needed anymore?
-//    @Column (name = "user_role")
-//    @Enumerated(EnumType.STRING)
-//    private UserRole userRole;
+    private String permissions = "";
 
     // Helper method to enable mapping between User and UserPrincipal (UserDetails interface)
     public List<String> getRoleList() {
