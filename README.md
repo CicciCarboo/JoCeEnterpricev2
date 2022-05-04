@@ -1,2 +1,3 @@
 # JoCeEnterpricev2
-Test
+Java Enterprise project with Spring Security. 
+Authors: Cicci Carboo and Josefin Andersson. 
