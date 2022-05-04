@@ -4,15 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import se.joce.springv2.model.User;
-import se.joce.springv2.security.UserRole;
 import se.joce.springv2.service.UserService;
 
-import javax.persistence.Column;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @SpringBootApplication
 public class Springv2Application {
