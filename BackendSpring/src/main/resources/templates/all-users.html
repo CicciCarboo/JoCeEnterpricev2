@@ -33,6 +33,7 @@
         <th>User roles</th>
         <th>Name</th>
         <th>Email</th>
+        <th>Username</th>
         <th>Password</th>
         <th>Update</th>
         <th>Delete</th>
@@ -44,6 +45,7 @@
         <td th:text="${user.roles}"></td>
         <td th:text="${user.name}"></td>
         <td th:text="${user.email}"></td>
+        <td th:text="${user.username}"></td>
         <td th:text="${user.password}"></td>
         <td><a th:href="@{/myTodoList/showFormForUpdate/{id}(id=${user.id})}" class="btn btn-dark">Update</a></td>
         <td><a th:href="@{/myTodoList/deleteUser/{id}(id=${user.id})}" class="btn btn-secondary">Delete</a></td>
