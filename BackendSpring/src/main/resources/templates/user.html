@@ -32,6 +32,7 @@
             <th>Id</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Username</th>
             <th>Password</th>
             <th>Update</th>
         </tr>
@@ -42,13 +43,14 @@
                     <td th:text="${user.id}"></td>
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.email}"></td>
+                    <td th:text="${user.username}"></td>
                     <td th:text="${user.password}"></td>
                     <td><a th:href="@{/myTodoList/showFormForUpdate/{id}(id=${user.id})}" class="btn btn-secondary">Update</a></td>
                 </tr>
         </tbody>
     </table>
     <div style="text-align: center">
-        <a th:href="@{/myTodoList/todolist}" class="btn btn-dark">My todo list</a>
+        <a th:href="@{/myTodoList/todolist}" class="btn btn-dark">My ToDo List</a>
     </div>
 </div>
 <footer>

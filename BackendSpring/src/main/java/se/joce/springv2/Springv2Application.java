@@ -19,12 +19,13 @@ public class Springv2Application {
     CommandLineRunner run(UserService userService) {
 
         return args ->{
+            userService.canRegisterNewUser(new User(null, "LottaJansson","Lotta", "123",
+                "lotta@lotta.se", 1, "USER", "USER_READ,USER_WRITE"));
             userService.canRegisterNewUser(new User(null, "Cecilia","Cicci", "123",
                     "cicci@cicci.se", 1, "ADMIN", "ADMIN_READ,ADMIN_WRITE,USER_READ,USER_WRITE"));
             userService.canRegisterNewUser(new User(null, "JosefinAndersson","Josefin", "123",
                     "josefin@josefin.se", 1, "ADMIN", "ADMIN_READ,ADMIN_WRITE,USER_READ,USER_WRITE"));
-            userService.canRegisterNewUser(new User(null, "LottaJansson","Lotta", "123",
-                    "lotta@lotta.se", 1, "USER", "USER_READ,USER_WRITE"));
+
 
         };
     }
