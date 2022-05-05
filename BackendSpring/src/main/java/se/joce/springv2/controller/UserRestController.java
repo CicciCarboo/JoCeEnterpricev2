@@ -75,8 +75,4 @@ public class UserRestController {
         return message;
     }
 
-    @GetMapping("/allAdmin")
-    public List<User> getAdminUsers() {
-        return userService.getAllAdmin();
-    }
 }
